@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paramount Academy | Science and Mathematics Tutorials</title>
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23012d69'%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Cellipse cx='12' cy='12' rx='10' ry='4' transform='rotate(30 12 12)' fill='none' stroke='%23e0ac1c' stroke-width='1.5'/%3E%3Cellipse cx='12' cy='12' rx='10' ry='4' transform='rotate(-30 12 12)' fill='none' stroke='%23e0ac1c' stroke-width='1.5'/%3E%3Cellipse cx='12' cy='12' rx='10' ry='4' transform='rotate(90 12 12)' fill='none' stroke='%23e0ac1c' stroke-width='1.5'/%3E%3C/svg%3E"
+        type="image/svg+xml">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;600&family=Dancing+Script:wght@500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #012d69;
+            /* Navy Blue */
+            --primary-light: #0d4494;
+            --primary-dark: #011b40;
+            --bg-light: #f4f7f9;
+            /* Soft blueish white */
+            --text-dark: #1a1a1a;
+            --text-light: #ffffff;
+            --accent: #e0ac1c;
+            /* Gold/Yellow as accent */
+            --font-heading: 'Cinzel', serif;
+            --font-body: 'Inter', sans-serif;
+            --font-script: 'Dancing Script', cursive;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: var(--font-body);
+            font-size: 16px;
+            color: var(--text-dark);
+        }
+
+        body {
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        /* Header & Nav */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(1, 45, 105, 0.1);
+            padding: 1rem 5%;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .logo-title {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-light);
+            letter-spacing: 1px;
+            transition: color 0.4s ease;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        header.scrolled .logo-title {
+            color: var(--primary-color);
+            text-shadow: none;
+        }
+
+        .logo-subtitle {
+            font-family: var(--font-script);
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-top: -8px;
+            transition: color 0.4s ease;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            letter-spacing: 1px;
+        }
+
+        header.scrolled .logo-subtitle {
+            color: var(--primary-color);
+            text-shadow: none;
+        }
+
+        /* Nav Links */
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 1.05rem;
+            position: relative;
+            transition: color 0.3s;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+        }
+
+        header.scrolled .nav-link {
+            color: var(--primary-color);
+            text-shadow: none;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: right;
+        }
+
+        .nav-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .btn-enroll {
+            background-color: var(--accent);
+            color: var(--primary-dark) !important;
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-shadow: none !important;
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+        }
+
+        .btn-enroll:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(224, 172, 28, 0.4);
+            background-color: #f7bd19;
+        }
+
+        .btn-enroll::after {
+            display: none;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 1001;
+        }
+
+        .mobile-menu-btn span {
+            width: 28px;
+            height: 3px;
+            background-color: var(--text-light);
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        header.scrolled .mobile-menu-btn span {
+            background-color: var(--primary-color);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background-color: var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            padding: 7rem 2.5rem;
+            gap: 2rem;
+            transition: 0.4s ease-in-out;
+            z-index: 999;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .mobile-nav-link:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 0 5%;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(1, 45, 105, 0.9) 0%, rgba(1, 45, 105, 0.6) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 1000px;
+            color: var(--text-light);
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: 3.2rem;
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-body);
+            font-size: 0.5em;
+            /* relative to title */
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            line-height: 1.7;
+            text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            box-shadow: 0 4px 15px rgba(1, 45, 105, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(1, 45, 105, 0.5);
+            color: var(--text-light);
+        }
+
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-color: var(--text-light);
+            color: var(--text-light);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--text-light);
+            color: var(--primary-color);
+            transform: translateY(-4px);
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        /* Base Sections */
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .title-underline {
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 8rem 5%;
+            background-color: var(--bg-light);
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: #4a5568;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 8rem 5%;
+            background-color: #ffffff;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature-card {
+            background-color: #ffffff;
+            padding: 3rem 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            border: 1px solid rgba(1, 45, 105, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(1, 45, 105, 0.1);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: rgba(1, 45, 105, 0.05);
+            border-radius: 50%;
+            color: var(--primary-color);
+            transition: transform 0.4s ease, background 0.4s ease, color 0.4s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+            background: var(--primary-color);
+            color: var(--text-light);
+        }
+
+        .feature-title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .feature-desc {
+            color: #5a6a7c;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 8rem 5%;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+            color: var(--text-light);
+        }
+
+        .testimonials-section .section-title {
+            color: var(--text-light);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2.5rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .stars {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .testimony {
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: #e2e8f0;
+            flex-grow: 1;
+            /* Pushes author info to bottom */
+        }
+
+        .author-info {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1rem;
+        }
+
+        .author-info h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info span {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .google-reviews-link {
+            text-align: center;
+            margin-top: 5rem;
+        }
+
+        .google-reviews-link p {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 5%;
+            background-color: var(--bg-light);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 5rem 3rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(1, 45, 105, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-content::after {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: var(--accent);
+            filter: blur(100px);
+            opacity: 0.3;
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .cta-content h2 {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            color: #5a6a7c;
+            margin-bottom: 3rem;
+            line-height: 1.7;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-content .btn {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Footer & Socials */
+        footer {
+            background-color: var(--primary-dark);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 5rem 5% 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 5rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--text-light);
+        }
+
+        .footer-brand p:first-of-type {
+            font-family: var(--font-script);
+            color: var(--accent);
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-blurb {
+            line-height: 1.7;
+            max-width: 380px;
+            font-size: 1.05rem;
+        }
+
+        .footer-links h3,
+        .footer-contact h3 {
+            color: var(--text-light);
+            font-family: var(--font-heading);
+            margin-bottom: 1.8rem;
+            font-size: 1.3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-links h3::after,
+        .footer-contact h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 30px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-links a {
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin-bottom: 1rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .footer-contact p {
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Social Media Styles */
+        .footer-social {
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .social-handle {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-left: 5px;
+            font-weight: 500;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .desktop-nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.6em;
+            }
+
+            .logo-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Preloader Styles */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, var(--primary-light) 0%, var(--primary-dark) 100%);
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        #preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .preloader-content {
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        /* 3D Atom Animation */
+        .atom-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 2rem;
+            perspective: 600px;
+            transform-style: preserve-3d;
+        }
+
+        .atom-nucleus {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            margin-top: -12px;
+            margin-left: -12px;
+            background: radial-gradient(circle at 30% 30%, #ffffff 0%, var(--accent) 60%, var(--primary-dark) 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 25px var(--accent), 0 0 50px var(--accent);
+            z-index: 10;
+        }
+
+        .atom-orbit {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2.5px solid rgba(224, 172, 28, 0.4);
+            border-radius: 50%;
+            transform-style: preserve-3d;
+        }
+
+        .atom-electron {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 12px;
+            height: 12px;
+            margin-left: -6px;
+            margin-top: -6px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #ffffff, 0 0 25px var(--accent);
+        }
+
+        /* Orbits configured in 3D angles */
+        .orbit-1 {
+            transform: rotateX(75deg) rotateY(15deg);
+            animation: orbit-rotate-1 3s linear infinite;
+        }
+
+        .orbit-2 {
+            transform: rotateX(70deg) rotateY(135deg);
+            animation: orbit-rotate-2 3s linear infinite;
+        }
+
+        .orbit-3 {
+            transform: rotateX(70deg) rotateY(-105deg);
+            animation: orbit-rotate-3 3s linear infinite;
+        }
+
+        /* Keyframes for smooth 3D orbits */
+        @keyframes orbit-rotate-1 {
+            0% {
+                transform: rotateX(75deg) rotateY(15deg) rotateZ(0deg);
+            }
+            100% {
+                transform: rotateX(75deg) rotateY(15deg) rotateZ(360deg);
+            }
+        }
+
+        @keyframes orbit-rotate-2 {
+            0% {
+                transform: rotateX(70deg) rotateY(135deg) rotateZ(0deg);
+            }
+            100% {
+                transform: rotateX(70deg) rotateY(135deg) rotateZ(360deg);
+            }
+        }
+
+        @keyframes orbit-rotate-3 {
+            0% {
+                transform: rotateX(70deg) rotateY(-105deg) rotateZ(0deg);
+            }
+            100% {
+                transform: rotateX(70deg) rotateY(-105deg) rotateZ(360deg);
+            }
+        }
+
+        /* Preloader Typography */
+        .preloader-title {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #ffffff 40%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            animation: shimmer 1.5s infinite alternate ease-in-out;
+        }
+
+        .preloader-subtitle {
+            font-family: var(--font-script);
+            font-size: 1.5rem;
+            color: var(--accent);
+            opacity: 0.9;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        @keyframes shimmer {
+            0% { opacity: 0.7; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Preloader / Loading Screen -->
+    <div id="preloader">
+        <div class="preloader-content">
+            <div class="atom-container">
+                <div class="atom-nucleus"></div>
+                <div class="atom-orbit orbit-1">
+                    <div class="atom-electron"></div>
+                </div>
+                <div class="atom-orbit orbit-2">
+                    <div class="atom-electron"></div>
+                </div>
+                <div class="atom-orbit orbit-3">
+                    <div class="atom-electron"></div>
+                </div>
+            </div>
+            <h2 class="preloader-title">PARAMOUNT ACADEMY</h2>
+            <p class="preloader-subtitle">ladder to success...</p>
+        </div>
+    </div>
+
+    <header id="main-header">
+        <a href="#home" class="logo-container">
+            <h1 class="logo-title">PARAMOUNT ACADEMY</h1>
+            <p class="logo-subtitle">ladder to success...</p>
+        </a>
+        <nav class="desktop-nav">
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#about" class="nav-link">About Us</a>
+            <a href="#why-us" class="nav-link">Why Join Us</a>
+            <a href="#testimonials" class="nav-link">Testimonials</a>
+            <a href="#admissions" class="nav-link btn-enroll">Enroll Now</a>
+        </nav>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="#home" class="mobile-nav-link">Home</a>
+        <a href="#about" class="mobile-nav-link">About Us</a>
+        <a href="#why-us" class="mobile-nav-link">Why Join Us</a>
+        <a href="#testimonials" class="mobile-nav-link">Testimonials</a>
+        <a href="#admissions" class="mobile-nav-link btn-enroll">Enroll Now</a>
+    </div>
+
+    <main>
+        <section id="home" class="hero-section">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h2 class="hero-title">
+                    Science and Mathematics Tutorials for Grades 8 to 12
+                    <br><span class="hero-subtitle"><strong>MHT-CET, JEE, NEET Foundation</strong></span>
+                </h2>
+                <p class="hero-description">Helping you build a strong foundation and gain the confidence to achieve top
+                    academic results.</p>
+                <div class="hero-ctas">
+                    <a href="#admissions" class="btn btn-primary">Enroll Now</a>
+                    <a href="#about" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="about-section fade-up">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fa-solid fa-award" style="color: var(--accent); margin-right: 15px;"></i>About Us
+                    </h2>
+                    <div class="title-underline"></div>
+                </div>
+                <div class="about-content">
+                    <p>At Paramount Academy, we believe strong academic results come from clear concepts, disciplined
+                        study habits, and consistent guidance. Our approach focuses on helping students truly understand
+                        what they learn, rather than simply memorising content.</p>
+                    <p style="margin-top: 1rem;">We go beyond just completing the syllabus by building a solid
+                        foundation in every subject and developing the confidence students need to perform well in
+                        exams.</p>
+                    <p style="margin-top: 1rem;">Our focused, supportive, and serious learning environment ensures each
+                        student receives the right attention, direction, and encouragement to grow academically.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Join Us Section -->
+        <section id="why-us" class="features-section">
+            <div class="section-container">
+                <div class="section-header fade-up">
+                    <h2 class="section-title">Why Join Us?</h2>
+                    <div class="title-underline"></div>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card fade-up">
+                        <div class="feature-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+                        <h3 class="feature-title">Expert Teachers</h3>
+                        <p class="feature-desc">Learn from highly experienced & passionate teachers</p>
+                    </div>
+                    <div class="feature-card fade-up" style="transition-delay: 50ms;">
+                        <div class="feature-icon"><span
+                                style="font-family: var(--font-heading); font-weight: 700; font-size: 2.2rem;">A+</span>
+                        </div>
+                        <h3 class="feature-title">Regular Tests</h3>
+                        <p class="feature-desc">Periodic testing with detailed performance analysis</p>
+                    </div>
+                    <div class="feature-card fade-up" style="transition-delay: 100ms;">
+                        <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+                        <h3 class="feature-title">Academic Feedback</h3>
+                        <p class="feature-desc">Individual progress and academic feedback to parents</p>
+                    </div>
+                    <div class="feature-card fade-up" style="transition-delay: 150ms;">
+                        <div class="feature-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                        <h3 class="feature-title">Smart Learning</h3>
+                        <p class="feature-desc">Smart & efficient learning techniques that simplify complex concepts</p>
+                    </div>
+                    <div class="feature-card fade-up" style="transition-delay: 200ms;">
+                        <div class="feature-icon"><i class="fa-solid fa-users"></i></div>
+                        <h3 class="feature-title">Personalized Attention</h3>
+                        <p class="feature-desc">Small batches & limited students per class ensure everyone is heard</p>
+                    </div>
+                    <div class="feature-card fade-up" style="transition-delay: 250ms;">
+                        <div class="feature-icon"><i class="fa-solid fa-book"></i></div>
+                        <h3 class="feature-title">Free Study Material</h3>
+                        <p class="feature-desc">Well-structured study notes and comprehensive worksheets</p>
+                    </div>
+                    <div class="feature-card fade-up" style="transition-delay: 300ms;">
+                        <div class="feature-icon"><i class="fa-solid fa-snowflake"></i></div>
+                        <h3 class="feature-title">AC Classrooms</h3>
+                        <p class="feature-desc">Comfortable & a distraction-free environment</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials-section">
+            <div class="section-container">
+                <div class="section-header fade-up">
+                    <h2 class="section-title">Testimonials</h2>
+                    <div class="title-underline"></div>
+                </div>
+
+                <div class="testimonials-grid">
+                    <div class="testimonial-card fade-up">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i></div>
+                        <p class="testimony">"The first testimony to this class is that my daughter is not willing to
+                            miss even one lecture! Both Maths and Science teachers are phenomenal. Everyone gets
+                            personalized attention... Most important - the classes are NOT on an auto-pilot mode."</p>
+                        <div class="author-info">
+                            <h4>Amit Handiekar</h4><span>Parent</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card fade-up" style="transition-delay: 50ms;">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i></div>
+                        <p class="testimony">"The instructors at Paramount Classes are highly knowledgeable and
+                            dedicated. They explain concepts clearly and ensure each student understands before moving
+                            on. The study material provided is excellent..."</p>
+                        <div class="author-info">
+                            <h4>Gulfam Sayyad</h4><span>Parent</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card fade-up" style="transition-delay: 100ms;">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i></div>
+                        <p class="testimony">"I highly recommend Paramount Academy for anyone seeking quality tuition in
+                            Science and Math. The academy boasts experienced and dedicated teachers like Geeta Ma'am and
+                            Sameena Ma'am..."</p>
+                        <div class="author-info">
+                            <h4>Pritika Pardeshi</h4><span>Student</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card fade-up" style="transition-delay: 150ms;">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i></div>
+                        <p class="testimony">"Very experienced Faculty. The Faculty gives their best effort to teach the
+                            students and the concepts are cleared efficiently. The coaching notes are solid and consists
+                            of everything needed for Boards..."</p>
+                        <div class="author-info">
+                            <h4>Farhan</h4><span>Student</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card fade-up" style="transition-delay: 200ms;">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i></div>
+                        <p class="testimony">"Excellent coaching given to students. Teachers are subject experts and
+                            give lot of practice to students. They make sure that concepts are clear and students are
+                            able to solve competency based questions."</p>
+                        <div class="author-info">
+                            <h4>Sheetal Sadanshiv</h4><span>Parent</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card fade-up" style="transition-delay: 250ms;">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i></div>
+                        <p class="testimony">"This is truly a blessing for kids. Geeta maam teaches very well..concepts
+                            get cleared..students find interest in subject to study..her notes also very effective.."
+                        </p>
+                        <div class="author-info">
+                            <h4>Anshu Mehrotra</h4><span>Parent</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card fade-up" style="transition-delay: 300ms;">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i></div>
+                        <p class="testimony">"Paramount Classes provides exceptional teaching with knowledgeable
+                            instructors who are dedicated to their students' success. The learning environment is
+                            supportive and conductive..."</p>
+                        <div class="author-info">
+                            <h4>Ayaan Patel</h4><span>Student</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card fade-up" style="transition-delay: 350ms;">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i></div>
+                        <p class="testimony">"Best tution ever, best teachers and very good teaching meathods easy
+                            understanding and friendly environment, best for competitive and boards exams ✨🙏🏾"</p>
+                        <div class="author-info">
+                            <h4>Abhinav Dhabe</h4><span>Student</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card fade-up" style="transition-delay: 400ms;">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i></div>
+                        <p class="testimony">"Paramount Academy is the best institute for excelling in academics and
+                            student success.They facilitate their students with the best knowledge possible.The faculty
+                            is highly experienced and ensure that every student recieves personalized attention and
+                            guidance."</p>
+                        <div class="author-info">
+                            <h4>Anuraag Srivastava</h4><span>Student</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card fade-up" style="transition-delay: 450ms;">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i></div>
+                        <p class="testimony">"I am extremely satisfied with Paramount Academy. The teachers here are
+                            very experienced and supportive. Paramount Academy has significantly deepened my academic
+                            understanding and greatly assisted me in my exam preparation."</p>
+                        <div class="author-info">
+                            <h4>Mohd Ayaan Shaikh</h4><span>Student</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="google-reviews-link fade-up">
+                    <p>Read all our reviews on Google!</p>
+                    <a href="https://maps.app.goo.gl/BRX4brD8US1Uufaz5" target="_blank" class="btn btn-primary"><i
+                            class="fa-brands fa-google" style="margin-right: 8px;"></i> View on Google Maps</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="admissions" class="cta-section">
+            <div class="cta-content fade-up">
+                <h2>Ready to Take the Next Step?</h2>
+                <p>Join Paramount Academy and climb the ladder to success. Admissions are now open for Grades 8 to 12
+                    Science and Mathematics.</p>
+                <a href="#contact-info" class="btn btn-primary">Contact Us to Enroll</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h2 class="footer-logo">PARAMOUNT ACADEMY</h2>
+                <p>ladder to success...</p>
+                <p class="footer-blurb">Empowering minds and shaping futures through uncompromised excellence in Science
+                    and Mathematics education for Grades 8-12.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#why-us">Why Us</a>
+                <a href="#testimonials">Testimonials</a>
+            </div>
+            <div id="contact-info" class="footer-contact">
+                <h3>Contact Us</h3>
+                <p style="display: flex; align-items: flex-start;">
+                    <i class="fa-solid fa-location-dot"
+                        style="margin-right: 10px; color: var(--accent); margin-top: 5px;"></i>
+                    <a href="https://maps.app.goo.gl/BRX4brD8US1Uufaz5" target="_blank"
+                        style="color: inherit; text-decoration: none; transition: color 0.3s; line-height: 1.4;">2nd
+                        Floor, Brij Bhavan Apartment, Salunke Vihar Rd, above ABC Farms Pvt Ltd, Kondhwa, Pune,
+                        Maharashtra 411048</a>
+                </p>
+                <p><i class="fa-solid fa-phone" style="margin-right: 10px; color: var(--accent);"></i> +91 8551084853 |
+                    +91 9422114084</p>
+                <p><i class="fa-solid fa-envelope" style="margin-right: 10px; color: var(--accent);"></i>
+                    paramountacademypune@gmail.com</p>
+
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/share/1C9kWmda2R/?mibextid=wwXIfr" target="_blank"
+                        aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/paramountacademypune?igsh=b3I5bGNwenc1cHFm" target="_blank"
+                        aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <span class="social-handle">@paramountacademypune</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="current-year"></span> Paramount Academy. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Preloader fadeout logic (guaranteed minimum display time of 3 seconds)
+        const preloaderStartTime = Date.now();
+
+        window.addEventListener('load', () => {
+            const timeElapsed = Date.now() - preloaderStartTime;
+            const remainingTime = Math.max(0, 3000 - timeElapsed);
+
+            setTimeout(() => {
+                const preloader = document.getElementById('preloader');
+                if (preloader && !preloader.classList.contains('fade-out')) {
+                    preloader.classList.add('fade-out');
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                    }, 600);
+                }
+            }, remainingTime);
+        });
+
+        // Fallback: Safe timeout in case of loading issues with third-party components
+        setTimeout(() => {
+            const preloader = document.getElementById('preloader');
+            if (preloader && !preloader.classList.contains('fade-out')) {
+                preloader.classList.add('fade-out');
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 600);
+            }
+        }, 6000);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Current Year for Footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // Header scroll effect
+            const header = document.getElementById('main-header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Mobile Menu Toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            let isMenuOpen = false;
+
+            function toggleMenu() {
+                isMenuOpen = !isMenuOpen;
+                if (isMenuOpen) {
+                    mobileMenu.classList.add('active');
+                    // transform hamburger to X
+                    mobileMenuBtn.children[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                    mobileMenuBtn.children[1].style.opacity = '0';
+                    mobileMenuBtn.children[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+
+                    // Fix header nav button colors on transparent background
+                    if (window.scrollY <= 50) {
+                        Array.from(mobileMenuBtn.children).forEach(child => child.style.backgroundColor = 'var(--text-light)');
+                    }
+                } else {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuBtn.children[0].style.transform = 'none';
+                    mobileMenuBtn.children[1].style.opacity = '1';
+                    mobileMenuBtn.children[2].style.transform = 'none';
+
+                    if (window.scrollY > 50) {
+                        Array.from(mobileMenuBtn.children).forEach(child => child.style.backgroundColor = '');
+                    }
+                }
+            }
+
+            mobileMenuBtn.addEventListener('click', toggleMenu);
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (isMenuOpen) toggleMenu();
+                });
+            });
+
+            // Intersection Observer for scroll animations (fade-up)
+            const fadeElements = document.querySelectorAll('.fade-up');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Number Counter animation trigger
+                        if (entry.target.classList.contains('stat-item')) {
+                            const numberElement = entry.target.querySelector('.stat-number');
+                            if (numberElement && !numberElement.classList.contains('counted')) {
+                                const targetVal = parseInt(numberElement.getAttribute('data-target'));
+                                // Add + sign natively in HTML string since innerHTML replaces it
+                                animateValue(numberElement, 0, targetVal, 2000);
+                                numberElement.classList.add('counted');
+                            }
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            fadeElements.forEach(el => observer.observe(el));
+
+            // Number Counter Animation Function
+            function animateValue(obj, start, end, duration) {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const easeOutQuart = 1 - Math.pow(1 - progress, 4); // Soft easing
+                    const currentVal = Math.floor(easeOutQuart * (end - start) + start);
+
+                    // Format naturally (e.g. 15,000)
+                    const formatted = currentVal.toLocaleString('en-US');
+
+                    obj.innerHTML = formatted + '<span style="color:var(--text-light);font-size:2.5rem;margin-left:2px;">+</span>';
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    } else {
+                        // Ensure it ends perfectly at the end value
+                        obj.innerHTML = end.toLocaleString('en-US') + '<span style="color:var(--text-light);font-size:2.5rem;margin-left:2px;">+</span>';
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+        });
+
+    </script>
+</body>
+
+</html>
